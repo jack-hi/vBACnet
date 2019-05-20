@@ -15,11 +15,11 @@ class Vdev:
     """
     Using a file to simulate a dev.
     """
-    def __init__(self, file, mode='wb'):
+    def __init__(self, file, mode='w'):
         if _debug: Vdev.debug("Vdev: create file: %s[%s]" % (file, mode))
         self.file = file
         self.mode = mode
-        self.dev = open(file, 'wb').close()
+        self.dev = open(file, 'wb+')
 
     def __del__(self):
         if _debug: Vdev.debug("    - Vdev: destory file: %s" % self.file)
