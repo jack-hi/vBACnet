@@ -46,6 +46,9 @@ class VBIdev(Vdev):
             c = f.read(1)
             return "inactive" if c == '0' else "active"
 
+    def __del__(self):
+        Vdev.__init(self)
+
 
 class VBOdev(Vdev):
     """
