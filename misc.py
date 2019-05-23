@@ -26,18 +26,13 @@ class Vdev:
     def read(self):
         raise NotImplementedError("Readd access not allowed.")
 
-    def __del__(self):
-        # if _debug: Vdev.debug("Vdev: destory file: %s" % self.file)
-        if exists(self.file):
-            remove(self.file)
-
 
 class VBIdev(Vdev):
     """
     Binary Input device. 0 / 1
     """
     def __init__(self, num, default='0'):
-        Vdev.__init__(self, "BI.dev-"+str(num))
+        Vdev.__init__(self, "./dev/BI.dev-"+str(num))
         with open(self.file, 'w', encoding='UTF-8') as f:
             f.write(default)
 
@@ -46,16 +41,13 @@ class VBIdev(Vdev):
             c = f.read(1)
             return "inactive" if c == '0' else "active"
 
-    def __del__(self):
-        Vdev.__init(self)
-
 
 class VBOdev(Vdev):
     """
     Binary Output device. 0 / 1
     """
     def __init__(self, num, default='0'):
-        Vdev.__init__(self, "BO.dev-"+str(num))
+        Vdev.__init__(self, "./dev/BO.dev-"+str(num))
         with open(self.file, 'w', encoding='UTF-8') as f:
             f.write(default)
 
@@ -63,6 +55,10 @@ class VBOdev(Vdev):
         with open(self.file, 'w', encoding='UTF-8') as f:
             f.write('0') if value == "inactive" else f.write('1')
 
+    def read(self):
+        with open(self.file, 'r', encoding='UTF-8') as f:
+            c = f.read(1)
+            return "inactive" if c == '0' else "active"
 
 if __name__ == '__main__':
     init_log(level="DEBUG")

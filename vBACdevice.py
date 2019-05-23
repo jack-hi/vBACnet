@@ -97,7 +97,7 @@ class DOPresentValue(Property):
 
         ###TODO: obj._led is the LED object
         if _debug:
-            DOPresentValue._debug("    - read led: %r", obj._dev.read())
+            DOPresentValue._debug("    - read dev: %r", obj._dev.read())
 
         if obj._dev.read() == "active":
             return "active"
@@ -123,7 +123,7 @@ class DOPresentValue(Property):
 
         ###TODO: obj._button is the Button object
         if _debug:
-            DOPresentValue._debug("    - write led: %r", obj.dev)
+            DOPresentValue._debug("    - write dev: %r", obj._dev)
 
         # raise ExecutionError(errorClass="property", errorCode="writeAccessDenied")
 
@@ -170,7 +170,7 @@ def main():
     # make a device object
     this_device = LocalDeviceObject(
         objectName=args.ini.objectname,
-        objectIdentifier=("device", int(args.ini.objectidentifier)),
+        objectIdentifier=int(args.ini.objectidentifier),
         maxApduLengthAccepted=int(args.ini.maxapdulengthaccepted),
         segmentationSupported=args.ini.segmentationsupported,
         vendorIdentifier=int(args.ini.vendoridentifier),
